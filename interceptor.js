@@ -5,13 +5,13 @@
     }
 
     Interceptor.prototype.init = function () {
-        define();
         let change = this.change;
         let open = XMLHttpRequest.prototype.open;
         XMLHttpRequest.prototype.open = function () {
             this.addEventListener('readystatechange', function () {
                 if (this.readyState == 4 && this.status == 200) {
                     let temp = this.responseText;
+                    defineSet();
                     this.responseText = temp;
                     if (change) {
                         change(this);
@@ -22,7 +22,7 @@
         }
     };
 
-    function define() {
+    function defineSet() {
         Object.defineProperty(XMLHttpRequest.prototype, 'responseText', {
             configurable: true,
             enumerable: true,
@@ -39,5 +39,5 @@
         return new Interceptor(fn);
     }
 
-    window.interceptor = int;
+    window.int = int;
 })(window);
