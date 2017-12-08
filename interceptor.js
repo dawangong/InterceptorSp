@@ -1,17 +1,17 @@
 (function (window) {
-    function Interceptor(change) {
-        this.change = change;
+    function Interceptor(fn) {
+        this.change = fn;
         this.init();
     }
 
     Interceptor.prototype.init = function () {
+        define();
         let change = this.change;
         let open = XMLHttpRequest.prototype.open;
         XMLHttpRequest.prototype.open = function () {
             this.addEventListener('readystatechange', function () {
                 if (this.readyState == 4 && this.status == 200) {
                     let temp = this.responseText;
-                    define();
                     this.responseText = temp;
                     if (change) {
                         change(this);
@@ -35,5 +35,9 @@
         })
     }
 
-    window.Interceptor = Interceptor;
+    function int(fn) {
+        return new Interceptor(fn);
+    }
+
+    window.interceptor = int;
 })(window);
