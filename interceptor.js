@@ -39,5 +39,5 @@
         return new Interceptor(fn);
     }
 
-    window.int = int;
+    window.Intercept = int;
 })(window);
