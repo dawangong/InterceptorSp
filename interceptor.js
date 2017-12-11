@@ -24,14 +24,7 @@
 
     function defineSet() {
         Object.defineProperty(XMLHttpRequest.prototype, 'responseText', {
-            configurable: true,
-            enumerable: true,
-            get: function () {
-                return this.value;
-            },
-            set: function (str) {
-                this.value = str;
-            }
+            writable:true
         })
     }
 
