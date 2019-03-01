@@ -28,9 +28,9 @@
         })
     }
 
-    function int(fn) {
+    function init(fn) {
         return new Interceptor(fn);
     }
 
-    window.Intercept = int;
+    window.Intercept = init;
 })(window);
